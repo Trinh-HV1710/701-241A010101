@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phần Lý Thuyết - Đề Số 1</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Mã SV: 241A010101</div>
+        <div class="menu-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="about.html" class="active">Lý thuyết (Phần 1)</a>
+            <a href="contact.html">Điểm danh & Link Deploy</a>
+        </div>
+    </nav>
+
+    <header style="padding: 2rem;">
+        <h1>PHẦN LÝ THUYẾT (40 ĐIỂM)</h1>
+        <p>Đề thi kết thúc học phần Lập trình Web - Đề số 1</p>
+    </header>
+
+    <section class="content-box" style="max-width: 900px;">
+        <div class="theory-item">
+            <h3>1. Sự khác biệt giữa <code>position: absolute</code> và <code>position: relative</code> (10 điểm)</h3>
+            <p><strong>- Relative:</strong> Phần tử vẫn giữ nguyên vị trí trong dòng chảy tài liệu (document flow). Khi dịch chuyển bằng <code>top</code>, <code>left</code>, nó dịch chuyển tương đối so với vị trí ban đầu của chính nó, không gian cũ của nó vẫn được giữ chỗ.</p>
+            <p><strong>- Absolute:</strong> Phần tử bị loại bỏ hoàn toàn khỏi document flow, không chiếm chỗ. Nó được định vị tương đối so với phần tử cha gần nhất có thiết lập position (khác static, thường là <code>relative</code>). Nếu không có, nó sẽ căn theo thẻ <code>&lt;html&gt;</code>.</p>
+            <p><strong>- Ví dụ responsive & Ảnh hưởng khi Deploy:</strong> Dùng <code>relative</code> cho khung chứa (container) và <code>absolute</code> để đặt nhãn "Sale" đè lên góc ảnh sản phẩm. Khi deploy lên hosting, các thuộc tính này hoạt động độc lập với server và hiển thị chuẩn xác trên mọi thiết bị nhờ CSS media queries.</p>
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #cbd5e1;">
+
+        <div class="theory-item">
+            <h3>2. Quy trình đăng ký Domain, Hosting & Vai trò DNS, Công cụ Deploy (10 điểm)</h3>
+            <p><strong>- Quy trình:</strong> Mua tên miền (Domain) tại nhà cung cấp (P.A Việt Nam, GoDaddy...), mua hoặc cấu hình không gian lưu trữ (Hosting), sau đó trỏ bản ghi DNS của Domain về địa chỉ IP của Hosting hoặc dịch vụ Static Hosting.</p>
+            <p><strong>- Vai trò DNS:</strong> Hệ thống phân giải tên miền (Domain Name System) đóng vai trò dịch tên miền thân thiện (ví dụ: <code>mywebsite.com</code>) thành địa chỉ IP máy chủ để trình duyệt có thể kết nối đến website.</p>
+            <p><strong>- Đề xuất công cụ không cần server riêng:</strong> Sử dụng <strong>GitHub Pages</strong> hoặc <strong>Netlify</strong> (rất nhanh, miễn phí cho web tĩnh HTML/CSS/JS).</p>
+            <p><strong>- Rủi ro bảo mật:</strong> Nếu không cấu hình HTTPS (SSL), không bảo vệ file cấu hình Git, hoặc cấu hình sai phân quyền hosting, website dễ bị tấn công Man-in-the-Middle hoặc lộ mã nguồn.</p>
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #cbd5e1;">
+
+        <div class="theory-item">
+            <h3>3. So sánh <code>let</code>, <code>const</code> và <code>var</code> về Scope & Hoisting (10 điểm)</h3>
+            <p><strong>- Scope (Phạm vi):</strong> <code>var</code> có phạm vi Function Scope (hoặc Global), trong khi <code>let</code> và <code>const</code> có Block Scope (trong cặp ngoặc nhọn <code>{}</code>).</p>
+            <p><strong>- Hoisting:</strong> Cả 3 đều được đưa lên đầu phạm vi, nhưng <code>var</code> được khởi tạo là <code>undefined</code>, còn <code>let</code> và <code>const</code> nằm trong "Temporal Dead Zone" và sẽ báo lỗi nếu gọi trước khi khai báo.</p>
+            <p><strong>- Lỗi thường gặp & Debug:</strong> Sử dụng biến <code>let</code> trong vòng lặp bất đồng bộ dẫn đến sai giá trị hoặc lỗi ReferenceError. Sử dụng **Chrome DevTools (tab Sources)** đặt điểm dừng (Breakpoint) để theo dõi giá trị biến theo từng dòng lệnh.</p>
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #cbd5e1;">
+
+        <div class="theory-item">
+            <h3>4. Khái niệm Event Delegation trong JavaScript (10 điểm)</h3>
+            <p><strong>- Khái niệm:</strong> Thay vì gán sự kiện trực tiếp cho từng phần tử con, ta gán sự kiện cho phần tử cha (parent element) và lợi dụng cơ chế nổi bọt sự kiện (Event Bubbling) để bắt sự kiện từ các phần tử con phát sinh.</p>
+            <p><strong>- Ứng dụng & Lợi ích:</strong> Xử lý click trên danh sách động (thêm/xóa sản phẩm liên tục). Giúp tiết kiệm bộ nhớ, không cần gán lại sự kiện mỗi khi thêm phần tử mới, tối ưu hiệu suất tổng thể của website.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Huỳnh Việt Trinh - 241A010101</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>

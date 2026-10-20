@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Thực Hành 2 - Form Đăng Ký</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Mã SV: 241A010101</div>
+        <div class="menu-links">
+            <a href="index.html">Trang chủ</a>
+            <a href="baitap01.html">BT1: Sản phẩm</a>
+            <a href="baitap02.html" class="active">BT2: Đăng ký</a>
+            <a href="baitap03.html">BT3: Countdown</a>
+        </div>
+    </nav>
+
+    <header style="padding: 2rem;">
+        <h1>ĐĂNG KÝ TÀI KHOẢN NGƯỜI DÙNG</h1>
+        <p>Xác thực form bằng JavaScript và lưu trữ dữ liệu an toàn với LocalStorage</p>
+    </header>
+
+    <section class="content-box" style="max-width: 500px;">
+        <form id="reg-form">
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom:5px;">Họ và tên:</label>
+                <input type="text" id="fullname" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom:5px;">Email:</label>
+                <input type="email" id="email" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom:5px;">Mật khẩu (Ít nhất 8 ký tự, có chữ hoa, chữ thường, số):</label>
+                <input type="password" id="password" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label><input type="checkbox" id="terms"> Đồng ý với các điều khoản dịch vụ</label>
+            </div>
+            <button type="submit" style="width:100%; background:#22c55e; color:white; border:none; padding:12px; border-radius:6px; font-weight:bold; cursor:pointer;">Đăng Ký Ngay</button>
+            <p id="form-msg" style="margin-top: 15px; text-align: center; font-weight: bold;"></p>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; Huỳnh Việt Trinh - 241A010101</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('reg-form');
+        const formMsg = document.getElementById('form-msg');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('fullname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const terms = document.getElementById('terms').checked;
+
+            // Regex kiểm tra mật khẩu: ít nhất 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 số
+            const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                formMsg.style.color = '#ef4444';
+                formMsg.textContent = 'Email không hợp lệ!';
+                return;
+            }
+
+            if (!passRegex.test(password)) {
+                formMsg.style.color = '#ef4444';
+                formMsg.textContent = 'Mật khẩu phải từ 8 ký tự trở lên, bao gồm chữ hoa, chữ thường và số!';
+                return;
+            }
+
+            if (!terms) {
+                formMsg.style.color = '#ef4444';
+                formMsg.textContent = 'Bạn phải đồng ý với điều khoản!';
+                return;
+            }
+
+            // Lưu dữ liệu vào LocalStorage (lưu ý bảo mật: không lưu mật khẩu dạng plain text thực tế, đây là bài tập mô phỏng)
+            const userData = { name, email, registeredAt: new Date().toISOString() };
+            localStorage.setItem('user_registered', JSON.stringify(userData));
+
+            formMsg.style.color = '#22c55e';
+            formMsg.textContent = 'Đăng ký thành công! Dữ liệu đã lưu vào LocalStorage.';
+            form.reset();
+        });
+    </script>
+</body>
+</html>
